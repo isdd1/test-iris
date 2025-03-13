@@ -2,17 +2,6 @@ import joblib
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-import os
-
-file_path = "prev_accuracy.txt"
-
-if os.path.exists(file_path) and os.stat(file_path).st_size > 0:
-    with open(file_path, "r") as f:
-        prev_accuracy = float(f.read().strip())  # Convert string to float
-else:
-    prev_accuracy = 0.0  # Default value if the file is missing or empty
-
-print(f"Previous accuracy: {prev_accuracy}")
 
 # Load data
 iris = pd.read_csv('iris.csv')
