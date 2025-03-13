@@ -21,7 +21,7 @@ pipeline {
 
         stage('Retrain Model') {
             steps {
-                sh 'python train.py'
+                sh 'python3 train.py'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     def prevAccuracy = sh(script: "cat prev_accuracy.txt", returnStdout: true).trim().toFloat()
-                    def newAccuracy = sh(script: "python evaluate.py", returnStdout: true).trim().toFloat()
+                    def newAccuracy = sh(script: "python3 evaluate.py", returnStdout: true).trim().toFloat()
 
                     echo "Previous Accuracy: ${prevAccuracy}"
                     echo "New Accuracy: ${newAccuracy}"
@@ -46,7 +46,7 @@ pipeline {
 
         stage('Register New Model in MLflow') {
             steps {
-                sh 'python register_model.py'
+                sh 'python3 register_model.py'
             }
         }
 
