@@ -28,8 +28,13 @@ pipeline {
         stage('Evaluate Model') {
             steps {
                 script {
-                    def prevAccuracy = sh(script: "cat prev_accuracy.txt", returnStdout: true).trim().toFloat()
-                    def newAccuracy = sh(script: "python3 evaluate.py", returnStdout: true).trim().toFloat()
+                    // Read previous accuracy safely
+                    def prevRaw = sh(script: "cat prev_accuracy.txt | grep -oE '[0-9]+\\.[0-9]+' || echo '0.0'", returnStdout: true).trim()
+                    def prevAccuracy = prevRaw.toFloat()
+                    
+                    // Get new model accuracy safely
+                    def newRaw = sh(script: "python3 evaluate.py | grep -oE '[0-9]+\\.[0-9]+' || echo '0.0'", returnStdout: true).trim()
+                    def newAccuracy = newRaw.toFloat()
 
                     echo "Previous Accuracy: ${prevAccuracy}"
                     echo "New Accuracy: ${newAccuracy}"
