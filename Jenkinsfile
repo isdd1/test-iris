@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        MLFLOW_TRACKING_URI = "http://mlflow:5000"
+        MLFLOW_TRACKING_URI = "http://0.0.0.0:5000"
     }
 
     stages {

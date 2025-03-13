@@ -1,7 +1,7 @@
 import mlflow
 import mlflow.sklearn
 
-mlflow.set_tracking_uri("http://mlflow:5000")
+mlflow.set_tracking_uri("http://0.0.0.0:5000")
 mlflow.set_experiment("Iris_Classification")
 
 model_uri = "runs:/{}/model".format(mlflow.active_run().info.run_id)
